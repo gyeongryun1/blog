@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,10 +29,13 @@ public class Board {
     @ColumnDefault("0")
     private int count; //조회수
 
+    @CreationTimestamp
+    private Timestamp createDate;
+
     @ManyToOne
     @JoinColumn(name="userId")
     private User user;
 
-    @CreationTimestamp
-    private Timestamp createDate;
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
+    private List<Reply> reply;
 }
