@@ -1,0 +1,2 @@
+1. csrf().disable() 안하면 post요청시 에러
+2. H2에는 User가 예약어라서 쓰면 에러

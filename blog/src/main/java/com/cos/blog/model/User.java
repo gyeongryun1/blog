@@ -5,6 +5,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -34,8 +36,7 @@ public class User {
 
 
     @Enumerated(EnumType.STRING)
-//    @ColumnDefault("'USER'") //"'USER'"
-    private UserAuth role;
+    private UserAuth role =UserAuth.USER;
     @CreationTimestamp //시간 자동 입력
     private Timestamp createDate;
 
@@ -50,5 +51,9 @@ public class User {
                 ", role=" + role +
                 ", createDate=" + createDate +
                 '}';
+    }
+
+    public void encodePassword(BCryptPasswordEncoder passwordEncoder) {
+        passwordEncoder.encode(this.password);
     }
 }
