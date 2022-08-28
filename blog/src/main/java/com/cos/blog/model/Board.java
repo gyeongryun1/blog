@@ -26,7 +26,6 @@ public class Board {
     @Lob // 대용량 데이터
     private String content;
 
-    @ColumnDefault("0")
     private int count; //조회수
 
     @CreationTimestamp
@@ -38,4 +37,18 @@ public class Board {
 
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
     private List<Reply> reply;
+
+    @Transient
+    @Override
+    public String toString() {
+        return "Board{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", count=" + count +
+                ", createDate=" + createDate +
+                ", user=" + user +
+                ", reply=" + reply +
+                '}';
+    }
 }
