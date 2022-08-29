@@ -26,10 +26,10 @@ public class BoardController {
     @GetMapping("/")
     public String index(Model model, @PageableDefault(size=3,sort="id",direction = Sort.Direction.DESC)Pageable pageable) {
         Page<Board> boards = boardService.boards(pageable);
-        boards.
+
         model.addAttribute("boards", boardService.boards(pageable));
         return "/index";
-        pageable
+
     }
 
 

@@ -11,8 +11,13 @@
         </div>
     </div>
 </div>
-<div th:each="board : ${pageable}" class="container"></div>
-
+<ul class="pagination justify-content-center">
+    <li class="page-item"><a class="page-link" th:href="@{(page=${boards.number-1})}" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="?page=0">1</a></li>
+    <li class="page-item"><a class="page-link" href="?page=1">2</a></li>
+    <li class="page-item"><a class="page-link" href="?page=2">3</a></li>
+<!--    <li class="page-item"><a class="page-link" href="?page=${boards.number+1}">Next</a></li>-->
+</ul>
 <div th:replace="~{fragment/footer :: copy}"></div>
 </body>
 </html>
