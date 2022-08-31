@@ -26,7 +26,6 @@ public class BoardController {
     @GetMapping("/")
     public String index(Model model, @PageableDefault(size=3,sort="id",direction = Sort.Direction.DESC)Pageable pageable) {
         Page<Board> boards = boardService.boards(pageable);
-
         model.addAttribute("boards", boardService.boards(pageable));
         return "/index";
 
@@ -39,10 +38,15 @@ public class BoardController {
         return "/board/saveForm";
     }
 
+    /** 여기 중복 없앨 수 없나? */
     @PostMapping("board/create")
-    public String boardCreate(@ModelAttribute Board board,Principal principal) {
+    public String boardCreate(@ModelAttribute Board board,Principal principal, Model model,@PageableDefault(size=3,sort="id",direction = Sort.Direction.DESC)Pageable pageable ) {
         User byUsername = userRepository.findByUsername(principal.getName());
         boardService.BoardCreate(board,byUsername);
+        System.out.println("===== 여기까지 정상작동함 ======");
+        Page<Board> boards = boardService.boards(pageable);
+        model.addAttribute("boards", boardService.boards(pageable));
+
         return "/index";
     }
 
