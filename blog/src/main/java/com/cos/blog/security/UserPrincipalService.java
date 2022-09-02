@@ -1,6 +1,7 @@
 package com.cos.blog.security;
 
 import com.cos.blog.Repository.UserRepository;
+import com.cos.blog.model.PrincipalDetail;
 import com.cos.blog.model.User;
 import com.cos.blog.model.UserAuth;
 import lombok.RequiredArgsConstructor;
@@ -20,16 +21,17 @@ public class UserPrincipalService implements UserDetailsService {
     private final UserRepository repository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = repository.findByUsername(username);
-        if (user == null) {
+        User principal = repository.findByUsername(username);
+        if (principal == null) {
             throw new UsernameNotFoundException(username);
         }
-        return org.springframework.security.core.userdetails.
-                User.builder()
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .roles("Role_"+user.getRole())
-                .build();
+        return new PrincipalDetail(principal);
+//                org.springframework.security.core.userdetails.
+//                User.builder()
+//                .username(user.getUsername())
+//                .password(user.getPassword())
+//                .roles("Role_"+user.getRole())
+//                .build();
     }
 
 
