@@ -34,7 +34,22 @@ public class BoardController {
 
     }
 
-    @DeleteMapping("/delete/board/{id}")
+    @PostMapping("update/board")
+    public RedirectView update(@ModelAttribute Board board) {
+        boardService.글수정하기(board);
+        return new RedirectView("/updateForm/board/"+board.getId());
+    }
+    @PostMapping("board/create")
+    public RedirectView boardCreate(@ModelAttribute Board board, Principal principal) {
+        User byUsername = userRepository.findByUsername(principal.getName());
+        boardService.BoardCreate(board,byUsername);
+        return new RedirectView("/");}
+    @GetMapping("/updateForm/board/{id}")
+    public String updateForm(@PathVariable Long id,Model model) {
+        model.addAttribute("board", boardService.글상세보기(id));
+        return "/board/updateForm";
+    }
+    @GetMapping("/delete/board/{id}")
     public RedirectView deleteById(@PathVariable Long id) {
         boardService.글삭제하기(id);
         return new RedirectView("/");
@@ -57,10 +72,6 @@ public class BoardController {
     }
 
     /** 여기 중복 없앨 수 없나? */
-    @PostMapping("board/create")
-    public RedirectView boardCreate(@ModelAttribute Board board, Principal principal) {
-        User byUsername = userRepository.findByUsername(principal.getName());
-        boardService.BoardCreate(board,byUsername);
-        return new RedirectView("/");}
+
 
 }

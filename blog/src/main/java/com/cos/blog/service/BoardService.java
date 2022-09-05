@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -40,6 +40,17 @@ public class BoardService {
     @Transactional
     public void 글삭제하기(Long id) {
         repository.deleteById(id);
+    }
+
+    @Transactional
+    public void 글수정하기(Board board) {
+      Optional<Board> target = repository.findById(board.getId());
+      if(target==null){
+          log.info("글 수정하기 실패: 해당 아이디를 찾을 수 없습니다");
+      }
+        target.get().setTitle(board.getTitle());
+        target.get().setContent(board.getContent());
+        log.info("title={}  content={}",target.get().getTitle(),target.get().getTitle());
     }
 }
 

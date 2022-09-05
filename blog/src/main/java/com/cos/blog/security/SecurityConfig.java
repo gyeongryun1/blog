@@ -26,9 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable(); // 이거 안해주면 post요청시 403error
+        http.csrf().disable();
         http.authorizeRequests()
-                .mvcMatchers("/","/user/**","/loginFail").permitAll()
+                .mvcMatchers("/","/user/**","/loginFail", "/test","/info","/").permitAll()
                 .mvcMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated();
         // 로그인시 간헐적으로 404에러가 뜸. 루트로 가면 로그인은 되어있음. 왜?

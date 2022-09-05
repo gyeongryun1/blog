@@ -8,10 +8,14 @@
     <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
 <!--    <block th:if="${#authorization.expr('isAuthenticated()')}">-->
         <block th:if="${principal.user.id == board.user.id}">
-        <button class="btn btn-warning">수정</button>
-            <form method="delete">
-        <button class="btn btn-danger" th:href="@{delete/board/{boardId}(boardId=${board.id})}">삭제</button>
-            </form>
+        <a th:href="@{/updateForm/board/{boardId}(boardId=${board.id})}">
+            <button class="btn btn-warning">수정</button>
+        </a>
+        <a th:href="@{/delete/board/{boardId}(boardId=${board.id})}">
+        <button type="button" class="btn btn-danger">삭제</button>
+        </a>
+<!--        <button th:onclick="location.href='/delete/board/{boardId}(boardId=${board.id})'" type="button" class="btn btn-danger">삭제</button>-->
+
         </block>
         <br/>
         <div>
