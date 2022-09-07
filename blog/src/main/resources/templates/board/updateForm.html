@@ -5,7 +5,8 @@
 <body>
 <div class="container">
     <form action="/board/update" method="post">
-        <input type="hidden" id="id" th:value="${board.id}">
+        <input type="hidden" name="id" id="id" th:value="${board.id}">
+<!--        컨트롤러에서 @ModelAttribute로 받을때 name값을 받는다-->
         <div class="form-group">
             <input type="text" name="title" class="form-control" id="title" th:value="${board.title}">
         </div>

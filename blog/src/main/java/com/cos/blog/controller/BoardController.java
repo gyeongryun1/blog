@@ -34,8 +34,10 @@ public class BoardController {
 
     }
 
-    @PostMapping("update/board")
+    @Transactional
+    @PostMapping("board/update")
     public RedirectView update(@ModelAttribute Board board) {
+        System.out.println(board.getId());
         boardService.글수정하기(board);
         return new RedirectView("/updateForm/board/"+board.getId());
     }
